@@ -1,24 +1,7 @@
-# vue_project
+<h1>Classic ToDo App to practice Vue skills</h2>
 
-## Project setup
-```
-npm install
-```
+<div style="margin-bottom: 10px">All data is stored in the local storage by default</div>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<img style="margin-bottom: 10px" src="./imgs/vue-app1.png">
+<img style="margin-bottom: 10px" src="./imgs/vue-app2.png">
+<img style="margin-bottom: 10px" src="./imgs/vue-app3.png">

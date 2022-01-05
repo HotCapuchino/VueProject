@@ -42,7 +42,7 @@
             }
 
             &.not-done {
-                background-color: #c7af42;
+                background-color: #e6da3d;
             }
 
             span {
@@ -56,7 +56,7 @@
                 &.importance {
                     font-size: 16px;
                     color: #c73833;
-                    margin: 0 5px;
+                    margin: 0 5spx;
                 }
             }
 
