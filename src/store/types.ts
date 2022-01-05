@@ -4,5 +4,5 @@ export interface ToDo {
     description: string,
     done: boolean,
     important: boolean,
-    createdAt: Date
+    createdAt: string
 }

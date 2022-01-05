@@ -1,31 +1,36 @@
-import { createStore } from 'vuex'
 import { ToDo } from './types';
-import { uuid } from 'uuidv4'
+import { uuid } from 'uuidv4';
 
-export const ToDoStore = createStore({
+export const toDoStore = {
     state: {
         toDos: [] as ToDo[],
     },
     getters: {
-        finishedToDos: (state): ToDo[] => {
-            return state.toDos.filter(toDo => toDo.done);
+        allToDos: (state: any): void => {
+          return state.toDos;
         },
-        unfinishedToDos: (state): ToDo[] => {
-            return state.toDos.filter(toDo => !toDo.done);
+        finishedToDos: (state: any): void => {
+            return state.toDos.filter((toDo: ToDo) => toDo.done);
         },
-        importantToDos: (state): ToDo[] => {
-            return state.toDos.filter(toDo => toDo.important);
+        unfinishedToDos: (state: any): void => {
+            return state.toDos.filter((toDo: ToDo) => !toDo.done);
         },
-        notImportantToDos: (state): ToDo[] => {
-            return state.toDos.filter(toDo => !toDo.important);
-        }
+        importantToDos: (state: any): void => {
+            return state.toDos.filter((toDo: ToDo) => toDo.important);
+        },
+        notImportantToDos: (state: any): void => {
+            return state.toDos.filter((toDo: ToDo) => !toDo.important);
+        },
+        getToDoById: (state: any) => (id: string): ToDo => {
+          return state.toDos.find((toDo: ToDo) => toDo.id === id);
+        },
     },
     mutations: {
-        setToDos(state, toDos: ToDo[]): void {
+        setToDos(state: any, toDos: ToDo[]): void {
             state.toDos = toDos;
         },
 
-        addToDo(state, toDo: ToDo): void {
+        addToDo(state: any, toDo: ToDo): void {
           const newId = uuid();
           const newToDo = {
             ...toDo,
@@ -36,18 +41,22 @@ export const ToDoStore = createStore({
           localStorage.setItem('toDos', JSON.stringify(state.toDos));
         },
     
-        deleteToDo(state, id: string): void {
-          const foundIndex = state.toDos.findIndex(toDo => toDo.id === id);
+        deleteToDo(state: any, id: string): void {
+          const foundIndex = state.toDos.findIndex((toDo: ToDo) => toDo.id === id);
+
           if (foundIndex >= 0) {
             state.toDos.splice(foundIndex, 1);
             localStorage.setItem('toDos', JSON.stringify(state.toDos));
           } else {
             console.warn(`unable to delete toDo with id: ${id}`);
           }
+
+          console.log('todos after', state.toDos);
         },
     
-        editToDo(state, newToDo: ToDo): void {
-          const foundIndex = state.toDos.findIndex(toDo => toDo.id === newToDo.id);
+        editToDo(state: any, newToDo: ToDo): void {
+          const foundIndex = state.toDos.findIndex((toDo: ToDo) => toDo.id === newToDo.id);
+
           if (foundIndex >= 0) {
             state.toDos[foundIndex] = newToDo;
             localStorage.setItem('toDos', JSON.stringify(state.toDos));
@@ -57,16 +66,20 @@ export const ToDoStore = createStore({
         }
     },
     actions: {
-        loadToDos(context): void {
+        loadToDos(context: any): void {
             const toDoString = localStorage.getItem('toDos');
             if (toDoString) {
-                context.dispatch('setToDos', JSON.parse(toDoString));
+                context.commit('setToDos', JSON.parse(toDoString));
             } else {
                 console.warn('unable to load toDos from local storage');
             }
         },
-        clearLocalStorage(_): void {
+        loadToDo: (context: any, id: string): ToDo => {
+          return context.state.toDos.find((toDo: ToDo) => toDo.id === id);
+        },
+        clearLocalStorage(_: any): void {
             localStorage.removeItem('toDos');
+            window.location.reload();
         }
     }
-})
+};

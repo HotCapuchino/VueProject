@@ -1,11 +1,11 @@
 import { createStore } from 'vuex';
-import { SystemStore } from './systemStore';
-import { ToDoStore } from './toDoStore';
+import { systemStore } from './systemStore';
+import { toDoStore } from './toDoStore';
 
 
 export default createStore({
   modules: {
-      toDoStore: ToDoStore, 
-      systemStore: SystemStore
+    toDoStore, 
+    systemStore
   }
-})
+});

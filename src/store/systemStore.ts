@@ -1,19 +1,17 @@
-import { createStore } from 'vuex'
-
-export const SystemStore = createStore({
+export const systemStore = {
     state: {
         editingToDoId: '',
         modalVisible: false,
     },
     mutations: {
-        openModal(state, id: string): void {
+        openModal(state: any, id: string): void {
             state.modalVisible = true;
             state.editingToDoId = id;
         },
     
-        closeModal(state): void {
+        closeModal(state: any): void {
             state.modalVisible = false;
             state.editingToDoId = '';
         },
     }
-});
+};
